@@ -2,13 +2,13 @@
   <div class="home">
     <div class="app-body">
       <LeftMenu :isCollapse="isCollapse" @checkItem="checkItem"></LeftMenu>
-      <HeaderMenu
+      <seeFromStyle></seeFromStyle>
+      <!-- <HeaderMenu
         :isCollapse="isCollapse"
         :breadList="breadList"
         @collapseMenu="collapseMenu"
         @refreshPage="refreshPage"
-      ></HeaderMenu>
-      <!-- <HistoryPage></HistoryPage> -->
+      ></HeaderMenu>-->
       <div class="page-wrapper">
         <router-view v-if="isRouterAlive"></router-view>
       </div>
@@ -17,57 +17,59 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, nextTick } from 'vue'
-import LeftMenu from '@/components/LeftMenu.vue'
-import HeaderMenu from '../components/HeaderMenu.vue'
+import { defineComponent, ref, nextTick } from "vue";
+import LeftMenu from "@/components/LeftMenu.vue";
+import HeaderMenu from "../components/HeaderMenu.vue";
+import seeFromStyle from "../components/project/seeFromStyle.vue";
 // import HistoryPage from '../components/HistoryPage.vue'
 // 面包屑相关
 const breadEvent = () => {
-  const breadList = ref([])
-  const checkItem = (arr) => {
-    breadList.value = arr
-  }
-  return { breadList, checkItem }
-}
+  const breadList = ref([]);
+  const checkItem = arr => {
+    breadList.value = arr;
+  };
+  return { breadList, checkItem };
+};
 // 刷新相关
 const refreshEvent = () => {
-  const isRouterAlive = ref(true)
+  const isRouterAlive = ref(true);
   const refreshPage = async () => {
-    isRouterAlive.value = false
-    await nextTick()
-    isRouterAlive.value = true
-  }
-  return { isRouterAlive, refreshPage }
-}
+    isRouterAlive.value = false;
+    await nextTick();
+    isRouterAlive.value = true;
+  };
+  return { isRouterAlive, refreshPage };
+};
 // 展开收起相关
 const collapseEvent = () => {
-  const isCollapse = ref(false)
+  const isCollapse = ref(false);
   const collapseMenu = () => {
-    isCollapse.value = !isCollapse.value
-  }
-  return { isCollapse, collapseMenu }
-}
+    isCollapse.value = !isCollapse.value;
+  };
+  return { isCollapse, collapseMenu };
+};
 export default defineComponent({
-  name: 'Home',
+  name: "Home",
   setup() {
-    const { breadList, checkItem } = breadEvent()
-    const { isRouterAlive, refreshPage } = refreshEvent()
-    const { isCollapse, collapseMenu } = collapseEvent()
+    const { breadList, checkItem } = breadEvent();
+    const { isRouterAlive, refreshPage } = refreshEvent();
+    const { isCollapse, collapseMenu } = collapseEvent();
     return {
       isRouterAlive,
       refreshPage,
       breadList,
       checkItem,
       isCollapse,
-      collapseMenu,
-    }
+      collapseMenu
+    };
   },
   components: {
     LeftMenu,
-    HeaderMenu,
+    //HeaderMenu,
+    seeFromStyle
     // HistoryPage,
-  },
-})
+  }
+});
 </script>
 <style lang="scss">
 .home {
